@@ -1,7 +1,3 @@
-import pygame, time, argparse, csv
-import numpy as np
-from time import sleep
-from numpy.random import randint
 
 class Maze:
     def __init__(self, matriz):
@@ -9,13 +5,26 @@ class Maze:
         self.matriz = matriz
         self.find_pos_inicio()
         self.find_pos_fim()
-        
+        self.pos_atual = self.pos_inicio
+        self.caminho = []
 
-    def custo_passo(self):
-        return 10
-    
-    def custo_caminho(self, caminho):
-        return self.custo_passo() * len(caminho)
+        print("\nINICIO DFS: \n")
+        self.dfs(self.pos_inicio)
+        print("\n")
+
+    def find_pos_inicio(self):
+        for i in range(self.ordem):  # linha
+            for j in range(self.ordem):  # coluna
+                if self.matriz[i][j] == 2:
+                    self.pos_inicio = [i, j]  # linha,coluna
+        print("Pos inicio: ", self.pos_inicio)
+
+    def find_pos_fim(self):
+        for i in range(self.ordem):
+            for j in range(self.ordem):
+                if self.matriz[i][j] == 3:
+                    self.pos_fim = [i, j]
+        print("Pos fim: ", self.pos_fim)
 
     def sucessor(self):
 
@@ -23,7 +32,7 @@ class Maze:
         x = self.pos_atual[1]
         resultado = []
 
-        if x >= 0:  # esquerda
+        if x >= 0:  #esquerda
             if self.matriz[y][x - 1] == 1:
                 resultado.append([y, x - 1])
 
@@ -41,7 +50,7 @@ class Maze:
 
         return resultado
 
-    def teste_objetivo_dfs(self, pos_eval):
+    def teste_objetivo(self, pos_eval):
         y = pos_eval[0]
         x = pos_eval[1]
 
@@ -63,45 +72,38 @@ class Maze:
 
         return 0
 
-    def dfs(self, pos_eval=None):
-        if pos_eval == None:
-            pos_eval = self.pos_inicio
-
+    def dfs(self, pos_eval):
         if self.pos_fim in self.caminho:
-            return self.caminho
-
-        self.caminho = []
+            return 1
+        
         print(pos_eval)
         self.caminho.append(pos_eval)
         self.pos_atual = pos_eval
 
-        if (self.teste_objetivo_dfs(pos_eval)):
+        if (self.teste_objetivo(pos_eval)):
             print("FIM", self.pos_fim)
             self.caminho.append(self.pos_fim)
-
             return 1
-
+        
         for i in self.sucessor():
             if i not in self.caminho:
                 next = i
-                self.plotMaze()
+                
                 self.dfs(next)
+      
+if __name__ == "__main__":
+    # aaaaaaaa#0 #1 #2 #3 #4 #5 #6 #7 #8 #9
+    matriz = [[2, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # 0
+              [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # 1
+              [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # 2
+              [1, 1, 1, 1, 1, 1, 1, 1, 0, 0],  # 3
+              [0, 0, 0, 1, 0, 1, 0, 1, 0, 0],  # 4
+              [0, 0, 0, 1, 0, 1, 0, 1, 0, 0],  # 5
+              [0, 0, 1, 1, 1, 1, 0, 1, 0, 0],  # 6
+              [0, 0, 1, 0, 0, 0, 0, 1, 0, 0],  # 7
+              [0, 0, 1, 0, 0, 0, 0, 1, 0, 0],  # 8
+              [0, 0, 1, 3, 1, 1, 1, 1, 0, 0]]  # 9
+    for i in matriz:
+        print(i)
 
-    def bfs(self):
-        self.lista = [self.pos_inicio]
-        self.caminho = []
-
-        while self.lista != []:
-            aux = self.lista.pop(0)
-            self.pos_atual = aux
-            self.caminho.append(aux)
-
-            for i in self.sucessor():
-                if i not in self.caminho:
-                    self.lista.append(i)
-
-        self.caminho.append(self.pos_fim)
-        print("Caminho: ", self.caminho)
-
-        return self.caminho
-    
+    maze = Maze(matriz)
