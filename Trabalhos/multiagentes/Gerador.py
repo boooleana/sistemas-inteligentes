@@ -10,10 +10,10 @@ import random
 from datetime import datetime
 from Funcoes import gerador_funcoes
 
-username_gerador = "18204402_gerador@jix.im"
-username_mde = "18204402_maquina_estados@jix.im"
-username_resolvedor = "18204402_resolvedor@jix.im"
-password = "sistemas_inteligentes2020.2"
+username_gerador = "boo_gerador@jix.im"
+username_mde = "boo_maquina_estados@jix.im"
+username_resolvedor = "boo_resolvedor@jix.im"
+password = "#Jujuba10"
 
 dt = datetime.now()
 dt.microsecond
@@ -23,10 +23,8 @@ random.seed(dt) #gera semente aleatoria
 class Gerador(Agent):
     
     grau = random.randint(1,3)
-    
     a, x,y = gerador_funcoes(grau)
  
-
     class funcao_grau(CyclicBehaviour):
         async def run(self):
             res = await self.receive(timeout=5)
@@ -86,16 +84,12 @@ class Gerador(Agent):
         self.add_behaviour(ft, template) #comportamento do tipo funcao
         
 
-
-
-
-        
 if __name__ == "__main__":
     time.sleep(5)
-    gerador = Gerador("18204402_gerador@jix.im", "sistemas_inteligentes2020.2")
-    #gerador.web.start(hostname="127.0.0.1", port="10000")
-    future = gerador.start()
-    future.result()
+    gerador = Gerador("boo_gerador@jix.im", "#Jujuba10")
+    gerador.web.start(hostname="127.0.0.1", port="10000")
+    res = gerador.start()
+    res.result()
       
     while gerador.is_alive():
        try:
@@ -103,3 +97,4 @@ if __name__ == "__main__":
        except KeyboardInterrupt:
           gerador.stop()
           break
+    print("Agente encerrou!")

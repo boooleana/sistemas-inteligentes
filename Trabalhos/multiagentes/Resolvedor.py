@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-
 import math
 
 import time
@@ -9,17 +8,16 @@ from spade.agent import Agent
 from spade.message import Message
 from spade.behaviour import FSMBehaviour, State, OneShotBehaviour
 
-
 STATE_ONE = "STATE_ONE"
 STATE_TWO = "STATE_TWO"
 STATE_THREE = "STATE_THREE"
 STATE_FOUR = "STATE_FOUR"
 STATE_FIVE = "STATE_FIVE"
 
-username_gerador = "18204402_gerador@jix.im"
-username_mde = "18204402_maquina_estados@jix.im"
-username_resolvedor = "18204402_resolvedor@jix.im"
-password = "sistemas_inteligentes2020.2"
+username_gerador = "boo_gerador@jix.im"
+username_mde = "boo_maquina_estados@jix.im"
+username_resolvedor = "boo_resolvedor@jix.im"
+password = "#Jujuba10"
 
 #requeste  --- pergunta qual o tipo de função para o gerador 
 #subscribe 
@@ -195,7 +193,7 @@ class FSMAgent(Agent):
 
 if __name__ == "__main__":
     time.sleep(5)
-    fsmagent = FSMAgent("18204402_resolvedor@jix.im", "sistemas_inteligentes2020.2")
+    fsmagent = FSMAgent("boo_resolvedor@jix.im", "#Jujuba10")
     future = fsmagent.start()
     future.result()
 

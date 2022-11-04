@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
 #!/bin/bash
 echo ligando os agentes ...
-gnome-terminal -- python3 Gerador.py
-gnome-terminal -- python3 Resolvedor.py
+gnome-terminal -- python Gerador.py
+gnome-terminal -- python Resolvedor.py
